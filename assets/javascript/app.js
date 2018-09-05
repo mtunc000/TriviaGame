@@ -1,3 +1,4 @@
+//question bank
 var questions =[
 {
     question: "What is the correct answer?correct B",
@@ -89,13 +90,10 @@ var intervalId;
 var timeleft = 30;
 var clock;
 
-// question Bank variables
+// question Bank variables and geting element by DOM
 var currentQuestion =0;
 var score= 0;
 let i=0;
-//var wrong = 0;
-//var questionIndex = questions.question;
-
 
 var container= document.getElementById('TreviaGame');
 var questionEl= document.getElementById('question');
@@ -103,12 +101,14 @@ var opt1= document.getElementById('opt1');
 var opt2= document.getElementById('opt2');
 var opt3= document.getElementById('opt3');
 var opt4= document.getElementById('opt4');
+var answer= document.getElementById('answer');
 var totalQuestion=questions.length;
 var nextButton= document.getElementById('nextButton');
 var resultCont= document.getElementById('result');
 var choice = document.getElementsByClassName('.option');
 
- //function timeconverter() {
+ //timer is set now 
+ 
     var min = Math.floor(timeleft/60);
     var sec = timeleft % 60;
 
@@ -146,86 +146,71 @@ function increment(){
     console.log(timeleft -counter);
 }
 
-   // loadQuestion()
+   // This function loads Question
 
 function loadQuestion(questionIndex){
     //for( i=0; i<questions.length; i++){
     var q= questions[questionIndex];
     questionEl.textContent=(questionIndex+1)+'.' +q.question;
-    //}
-    //questionEl.textContent=q.question1;
+    
     opt1.textContent=q.option1;
     opt2.textContent=q.option2;
     opt3.textContent=q.option3;
     opt4.textContent=q.option4;
+    answer.textContent=q.answer;
 
-    //console.log(questions.option1);
-    // <!DOCTYPE html>
-    // <html>
-    // <body>
-    
-    // <h2>JavaScript addEventListener()</h2>
-    
-    // <p>This example uses the addEventListener() method to add many events on the same button.</p>
-    
-    // <button id="myBtn">Try it</button>
-    
-    // <p id="demo"></p>
-    
-    // <script>
-    // var x = document.getElementById("myBtn");
-    // x.addEventListener("mouseover", myFunction);
-    // x.addEventListener("click", mySecondFunction);
-    // x.addEventListener("mouseout", myThirdFunction);
-    
 
-    // function mySecondFunction() {
-    //     document.getElementById("demo").innerHTML += "Clicked!<br>";
-    // }
-  
-    // </script>
-    
-    // </body>
-    // </html>
-
+//whenever clicked the next question button it loads the next question
     nextButton.addEventListener("click",loadNextQuestion,false);
 };
 
 
-// selectedOption.addEventListener("click",selectedOption);
-// function values(){
-//     document.getElementsByTagName("value").innerHTML = value;
-//}
 
+// loads the next question
 function loadNextQuestion()
 {
-    var selectedOption=document.querySelectorAll('input[type=radio] [name=option] value:checked');
-
-    // var choice = document.getElementsByClassName('option');
    
-    
+    var selectedOption=document.querySelectorAll('input[type=radio] [name=option] value:checked');
+  
+    //each question time is starting from beginning
+   timeleft = 30;
+   counter = 0;
+
+
+   //check if question is selected 
     if(!selectedOption){ 
-        alert('choose selection')
+        alert('choose selection');
         return;
     }
+
+    //check if the selected answer is correct
 
     var answer = selectedOption.value;
             if(questions[currentQuestion].answer==answer){
         
-                score +=10;
-            }
-    
-    //selectedOption.checked == false;
-    
-    currentQuestion++;
+                //increase the score by 10 if the answer is correct
 
+                score +=10;
+     
+            }
+         //increase the question number so allows to recruit the next question
+
+            selectedOption.checked == false;
+    
+            currentQuestion++;
+    
+//changes the next button text to finish
     if (currentQuestion==totalQuestion-1){
         nextButton.textContent = 'Finish';
 
     }
-
+//time counter stops
     if(currentQuestion==totalQuestion){
-
+        
+        clearInterval(intervalId);
+        timeleft = 0;
+        counter = 0;
+//big container disappears and result container appears and shows the results
         container.style.display = 'none';
         resultCont.style.display = '';
         resultCont.textContent= 'Your score :' +score;
@@ -235,6 +220,3 @@ function loadNextQuestion()
 }
 loadQuestion(currentQuestion);
 
-
-//question.html(question 1);
-//console.log(questions.option1);
