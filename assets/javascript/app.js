@@ -1,6 +1,6 @@
 var questions =[
 {
-    question1: "What is the correct answer?correct B",
+    question: "What is the correct answer?correct B",
     option1: "Answer A",
     option2: "Answer B",
     option3: "Answer C",
@@ -9,7 +9,7 @@ var questions =[
 },
 
 {
-    question2: "What what is the correct answer?correct C",
+    question: "What what is the correct answer?correct C",
     option1: "Answer AB",
     option2: "Answer B",
     option3: "Answer C",
@@ -17,7 +17,7 @@ var questions =[
     answer: "3"
 },
 {
-    question3: "What is the correct answer?correct A",
+    question: "What is the correct answer?correct A",
     option1: "Answer AC",
     option2: "Answer B",
     option3: "Answer C",
@@ -25,7 +25,7 @@ var questions =[
     answer: "1"
 },
 {
-    question4: "What is the correct answer?correct B",
+    question: "What is the correct answer?correct B",
     option1: "Answer AD",
     option2: "Answer B",
     option3: "Answer C",
@@ -33,51 +33,51 @@ var questions =[
     answer: "2"
 },
 {
-    question5: "What is the correct answer?correct D",
+    question: "What is the correct answer?correct D",
     option1: "Answer A",
-    option2: "Answer B",
+    option2: "Answer BC",
     option3: "Answer C",
     option4: "Answer D",
     answer: "4"
 },
 {
-    question6: "What is the correct answer?correct D",
+    question: "What is the correct answer?correct D",
     option1: "Answer A",
-    option2: "Answer B",
+    option2: "Answer BD",
     option3: "Answer C",
     option4: "Answer D",
     answer: "4"
 },
 {
-    question7: "What is the correct answer?correct B",
+    question: "What is the correct answer?correct B",
     option1: "Answer A",
     option2: "Answer B",
-    option3: "Answer C",
+    option3: "Answer CD",
     option4: "Answer D",
     answer: "2"
 },
 {
-    question8: "What is the correct answer?correct C",
+    question: "What is the correct answer?correct C",
     option1: "Answer A",
     option2: "Answer B",
     option3: "Answer C",
-    option4: "Answer D",
+    option4: "Answer DA",
     answer: "3"
 },
 {
-    question9: "What is the correct answer?correct B",
+    question: "What is the correct answer?correct B",
     option1: "Answer A",
     option2: "Answer B",
     option3: "Answer C",
-    option4: "Answer D",
+    option4: "Answer DB",
     answer: "2"
 },
 {
-    question10: "What is the correct answer?correct A",
+    question: "What is the correct answer?correct A",
     option1: "Answer A",
     option2: "Answer B",
     option3: "Answer C",
-    option4: "Answer D",
+    option4: "Answer DD",
     answer: "1"
 },
 ]
@@ -92,7 +92,7 @@ var clock;
 // question Bank variables
 var currentQuestion =0;
 var score= 0;
-let i=1;
+let i=0;
 //var wrong = 0;
 //var questionIndex = questions.question;
 
@@ -149,9 +149,10 @@ function increment(){
    // loadQuestion()
 
 function loadQuestion(questionIndex){
-    //for( i=1; i<questions.length; i++)
+    //for( i=0; i<questions.length; i++){
     var q= questions[questionIndex];
-    questionEl.textContent=(questionIndex+ 1)+'.' +q.question+(questionIndex+ 1);
+    questionEl.textContent=(questionIndex+1)+'.' +q.question;
+    //}
     //questionEl.textContent=q.question1;
     opt1.textContent=q.option1;
     opt2.textContent=q.option2;
@@ -186,8 +187,10 @@ function loadQuestion(questionIndex){
     
     // </body>
     // </html>
+
+    nextButton.addEventListener("click",loadNextQuestion,false);
 };
-nextButton.addEventListener("click",loadNextQuestion,false);
+
 
 // selectedOption.addEventListener("click",selectedOption);
 // function values(){
@@ -196,7 +199,7 @@ nextButton.addEventListener("click",loadNextQuestion,false);
 
 function loadNextQuestion()
 {
-    var selectedOption=document.querySelectorAll('input[type=radio]:checked');
+    var selectedOption=document.querySelectorAll('input[type=radio] [name=option] value:checked');
 
     // var choice = document.getElementsByClassName('option');
    
@@ -212,9 +215,10 @@ function loadNextQuestion()
                 score +=10;
             }
     
-    selectedOption.checked == false;
-  
-    currentQuestion ++;
+    //selectedOption.checked == false;
+    
+    currentQuestion++;
+
     if (currentQuestion==totalQuestion-1){
         nextButton.textContent = 'Finish';
 
